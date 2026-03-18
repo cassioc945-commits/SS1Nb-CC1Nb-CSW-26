@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Principais Formatações</h1>
+
+    <h2>Negrito / Destaque</h2>
+    <p>Na frase temos uma <b> parte do texto em negrito</b> usando a tag B (não semântica)</p>
+    <p>Na frase temos uma <strong> parte do texto em negrito</strong> usando a tag Strong (com semântica)</p>
+
+    <h2>Itálico / Ênfase</h2>
+    <p>Nesta frase vamos entrar com uma palavra em <i>itálico</i> usando a tag i (não semântica)</p>
+    <p>Nesta frase vamos entrar com uma palavra em <em>itálico</em> usando a tag EM (com semântica)</p>
+
+    <h2>Texto Marcador</h2>
+    <p>Aqui vamos usar um texto com destaque <mark style="background-color: green;">de marcador de texto</mark> usando
+        mark</p>
+    <p>Aqui vamos usar um texto com destaque <mark style="background-color: yellow;">de marcador de texto</mark> usando
+        mark</p>
+
+    <h2>Texto grande e pequeno</h2>
+    <p>Estamos trabalhando aqui com um <big>texto grande</big> e um <small>texto pequeno</small> nesta frase</p>
+
+    <h2>Texto deletado</h2>
+    <p>Estamos trabalhando </p>
+
+    <pre>
+        <code>
+            import math
+
+            def resolver_segundo_grau(a, b, c):
+                if a == 0:
+                    return "Não é equação do 2º grau (a = 0)."
+    
+                delta = b**2 - 4*a*c
+    
+                if delta < 0:
+                    return "Não existem raízes reais."
+                elif delta == 0:
+                    x = -b / (2*a)
+                    return f"Uma raiz real: x = {x}"
+                else:
+                    x1 = (-b + math.sqrt(delta)) / (2*a)
+                    x2 = (-b - math.sqrt(delta)) / (2*a)
+                    return f"Duas raízes reais: x1 = {x1}, x2 = {x2}"
+
+                # Exemplo de uso:
+                a = 1
+                b = -3
+                c = 2
+
+                resultado = resolver_segundo_grau(a, b, c)
+                print(resultado)
+        </code>
+    </pre>
+</body>
+
+</html>
