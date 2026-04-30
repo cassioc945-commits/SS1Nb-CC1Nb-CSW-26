@@ -1,4 +1,18 @@
-.butao{
+body{
+    text-align: center;
+    background-image: radial-gradient(circle,rgb(63, 46, 46),rgb(0, 0, 0));
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    color: white;
+    margin-bottom: 30px;
+}
+
+.home{
+    border-radius: 10px;
+    margin-left: 10px;
+    display: inline-block;
     color: white;
     background-color: rgb(85, 85, 85);
     padding: 20px;
@@ -6,28 +20,48 @@
     text-align: center;
 }
 
-.butao:hover{
-    background-color: rgb(0, 8, 126);
+.home:hover{
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.play{
+    border-radius: 10px;
+    margin-left: 10px;
+    display: inline-block;
+    color: white;
+    background-color: rgb(85, 85, 85);
+    padding: 20px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.play:active{
+    background-color: aqua;
 }
 
 .stream{
-    background-color: aqua;
+    border-radius: 10px;
+    text-align: center;
+    margin: 25px auto; 
+    padding: 20px;
     background-color: rgb(85, 85, 85);
-    width: 30%
+    width: 500px;
 }
 
-li{
+.stream li{
     display: inline-block;
     padding: 20px;
 }
 
-li a{
-    color: white;
-    text-decoration: none;
+.stream li:hover{
+    background-color: aqua;
+    border-radius: 10px;
 }
 
-a:hover{
-    
+.stream li a{
+    color: white;
+    text-decoration: none;
 }
 
 a::before{
@@ -35,5 +69,5 @@ a::before{
 }
 
 a::after{
-    content: '🎵​';
+    content: '🎵*';
 }
