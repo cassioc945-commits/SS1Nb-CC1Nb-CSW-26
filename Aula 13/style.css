@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(112, 112, 112);
+    background-color: #1A2238;
 }
 
 .title{
@@ -13,16 +13,54 @@ body{
 }
 
 .container{
+    
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 45%;
     margin: auto;
 }
 
 .container div{
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 15px;
+
     align-content: center;
     border-radius: 5px;
-    padding: 10px;
+    
     background-color: white;
     margin: 15px 5px 0 5px;
 }   
+
+.container h1{
+    margin: 0px auto;
+    padding: 10px;
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.container button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    align-self: center;
+}
+
+.container button:hover {
+    transform: translateY(-2.5px);
+}
+
+.container button:active{
+    background-color: #2195f385;
+    transform: scale(0.98); /* movimento ao clicar*/
+}
+
+
+
+    
