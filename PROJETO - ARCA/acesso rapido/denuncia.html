@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+
+    <header class="container-nav">
+        <nav class="navegacao">
+            <ul class="menu-lista">
+                <li><a href="../index.html"><img src="../public/icones-images/aplicativos.png" alt="menu-arca" class="icone-topo"></a></li>
+                <li class="barra-pesquisa">
+                    <input class="search" type="search" placeholder="🔎︎ Pesquisar">
+                </li>
+                <ul class="menu-lista-02">
+                    <li><img src="../public/icones-images/informacoes.png" alt="acessibilidade" class="ajuste-icon"></li>
+                    <li><img src="../public/icones-images/do-utilizador.png" alt="perfil" class="ajuste-icon"></li>
+                    <li><img src="../public/icones-images/perfil.png" alt="perfil" class="ajuste-icon"></li>
+                </ul>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="rescue-main-container">
+
+    <h1 class="rescue-title">Registro de Denúncia</h1>
+
+    <div class="rescue-form-box">
+        
+        <div class="rescue-badge-container">
+            <img src="./public/icones-images/alerta-denuncia.png" alt="Ícone Alerta" class="rescue-logo">
+            <h3>Adicione Informações Sobre o Caso</h3>
+        </div>
+
+        <div class="form-group">
+            <label class="rescue-label">Local:</label>
+            <input type="text" class="rescue-input" placeholder="Digite o local da ocorrência">
+        </div>
+
+        <div class="form-group">
+            <label class="rescue-label">Hora:</label>
+            <input type="text" class="rescue-input rescue-input-short" placeholder="00:00">
+        </div>
+
+        <div class="form-group-block">
+            <label class="rescue-label">Descrição do Caso:</label>
+            <textarea class="rescue-textarea" placeholder="Descreva detalhadamente o que aconteceu..."></textarea>
+        </div>
+
+        <div class="form-footer">
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </div>
+
+    </div>
+
+</main>
+</body>
+</html>
