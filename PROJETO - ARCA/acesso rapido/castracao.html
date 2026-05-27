@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>A Web Page</title>
 
     <link rel="stylesheet" href="../src/style.css">
+    
 </head>
 
 <body>
@@ -56,49 +57,47 @@
                         </li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
     </header>
 
-    <main class="rescue-main-container">
+    <main>
 
-        <h1 class="rescue-title">Pedido de Resgate</h1>
-
-        <div class="rescue-form-box">
-
-            <div class="rescue-badge-container">
-                <img src="./public/icones-images/escudo-pet.png" alt="Ícone Proteção" class="rescue-logo">
-                <h3>Adicionar Informações</h3>
+        <section class="carrossel">
+            <button class="botao-esquerda" id="prev-button"><img src="../public/icones-images/L-seta.png" alt="prev-button"></button>
+            <div class="container">
+                <img src="../public/images/1920x1080-pictures-zog2vma3qpmt2o9l.jpg" alt="abrigo-animais" class="slider on ">
+                <img src="../public/images/1920x1080.png" alt="abrigo-animais" class="slider">
+                <img src="../public/images/1920x1080-hd-space-n7pksg9648pvv2rx.jpg" alt="abrigo-animais" class="slider">
             </div>
+            <button class="botao-direita" id="next-button"><img src="../public/icones-images/R-seta.png" alt="next-button"></button>
+        </section>
 
-            <div class="form-group">
-                <label class="rescue-label">Local:</label>
-                <input type="text" class="rescue-input" placeholder="Digite o local do resgate">
+        <section class="container-section">
+
+            <div class="container-cards">
+                <a href="../acesso rapido/adoção.html" class="card">
+                    <img src="icone-gato.png" alt="Ícone de Adoção">
+                    <span>Adoção</span>
+                </a>
+
+                <a href="#" class="card">
+                    <img src="icone-maleta.png" alt="Ícone de Vagas">
+                    <span>Vagas</span>
+                </a>
+
+                <a href="#" class="card">
+                    <img src="icone-alerta.png" alt="Ícone de Alerta">
+                    <span>Alertas</span>
+                </a>
+
             </div>
-
-            <div class="form-group">
-                <label class="rescue-label">Hora:</label>
-                <input type="text" class="rescue-input rescue-input-short" placeholder="00:00">
-            </div>
-
-            <div class="form-group">
-                <label class="rescue-label">Tipo de Animal:</label>
-                <input type="text" class="rescue-input" placeholder="Ex: Cão, Gato, Ave...">
-            </div>
-
-            <div class="form-group-block">
-                <label class="rescue-label">Descrição do Caso:</label>
-                <textarea class="rescue-textarea"
-                    placeholder="Descreva os detalhes da situação do animal..."></textarea>
-            </div>
-
-            <div class="form-footer">
-                <button type="submit" class="btn-enviar">Enviar</button>
-            </div>
-
-        </div>
+        </section>
 
     </main>
+
+    <script src="../src/script.js"></script>
 </body>
 
 </html>

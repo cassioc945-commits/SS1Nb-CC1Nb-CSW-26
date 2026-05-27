@@ -1,0 +1,1066 @@
+
+/* ==========================================================================
+   1. RESET E CONFIGURAÇÕES GLOBAIS
+   ========================================================================== */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.link-unline{
+  text-decoration: none;
+}
+
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4edd9;
+}
+
+/* ==========================================================================
+   2. ESTRUTURA DO HEADER / NAVEGAÇÃO
+   ========================================================================== */
+.container-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 5%; 
+  background-color: #804e25;
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+}
+
+.navegacao,
+.menu-lista {
+  width: 100%;
+}
+
+.menu-lista {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-lista-02 {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto; /* Empurra dinamicamente para a extrema direita */
+}
+
+/* ==========================================================================
+   2.1 BARRA DE PESQUISA
+   ========================================================================== */
+.barra-pesquisa {
+  flex-grow: 1; 
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  width: 100%;
+  max-width: 600px; 
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #777;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search:focus {
+  border-color: #ffdb15;
+  box-shadow: 0 0 5px rgba(255, 219, 21, 0.5);
+}
+
+/* ==========================================================================
+   2.2 ÍCONES E GATILHOS (TRIGGERS)
+   ========================================================================== */
+.icone-topo, 
+.ajuste-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+/* Agrupando o hover dos ícones e resetando o botão ao mesmo tempo */
+.dropdown-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer; /* O cursor pointer passou para o botão oficial */
+}
+
+.dropdown-trigger:hover .icone-topo,
+.dropdown-trigger:hover .ajuste-icon,
+.icone-topo:hover, 
+.ajuste-icon:hover {
+  transform: scale(1.1); 
+}
+
+/* ==========================================================================
+   2.3 SISTEMA DE DROPDOWN (MENUS SUSPENSOS)
+   ========================================================================== */
+
+.menu-item-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Container da direita */
+.bloco-direita-container {
+  margin-left: auto;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 130%;
+  background-color: #ffffff;
+  min-width: 220px;
+  border-radius: 4px;
+  padding: 10px 0;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Menu da direita */
+.menu-lista-02 .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+/* Menu da esquerda */
+.menu-lista > .menu-item-container > .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+
+/* Lista */
+.dropdown-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* LINKS */
+.dropdown-links li a {
+  display: flex;              
+  align-items: center;        
+  gap: 10px;                  
+
+  padding: 12px 20px;
+  color: #000;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+/* HOVER */
+.dropdown-links li a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ÍCONES */
+.dropdown-links li a i,
+.dropdown-links li a span.icone {
+  width: 20px;               /* <- largura fixa */
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* USER HEADER */
+.user-header {
+  padding: 10px 20px;
+  color: white;
+  font-family: sans-serif;
+}
+
+.user-name {
+  display: block;
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* DIVISOR */
+.divisor {
+  border: 0;
+  border-top: 1px solid #333;
+  margin: 5px 0;
+}
+
+/* ==========================================================================
+   3. CARROSSEL (HOME)
+   ========================================================================== */
+.carrossel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; 
+  height: 470px;
+  margin: 30px auto; 
+  overflow: hidden;
+  border-radius: 12px;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Configuração de transição das imagens por opacidade */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover; 
+  transition: opacity 0.6s ease-in-out; 
+  border-radius: 10px;
+}
+
+.on {
+  opacity: 1;
+  position: relative; 
+}
+
+/* Botões do Carrossel (Estilo Esférico Perfeito) */
+#prev-button, 
+#next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: #ffffff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao-esquerda { left: 16px; }
+.botao-direita { right: 16px; }
+
+#prev-button img, 
+#next-button img {
+  width: 55%; 
+  height: 55%;
+  object-fit: contain;
+  pointer-events: none; 
+}
+
+#prev-button:hover, 
+#next-button:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) scale(1.08); 
+}
+
+#prev-button:active, 
+#next-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* ==========================================================================
+   4. SEÇÃO DE CARDS (ACESSO RÁPIDO - HOME)
+   ========================================================================== */
+.container-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.sub-pag01 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 10px 15px;
+  background-color: #804e25;
+  border-radius: 8px;
+  width: fit-content; 
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.container-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 20px; 
+  width: 100%;
+}
+
+.container-cards a.card {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 220px; 
+  padding: 25px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #333333;
+  font-weight: 600;
+  font-size: 16px;
+  gap: 15px; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.container-cards a.card img {
+  width: 60px;  
+  height: 60px;
+  object-fit: contain;
+}
+
+.container-cards a.card:hover {
+  /* CORRIGIDO: Fusão dos dois blocos transform conflitantes anteriores */
+  transform: translateY(-5px) scale(1.05); 
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #ffdb15;  
+}
+
+/* ==========================================================================
+   5. TELA DE FILTROS E LISTAGEM (DASHBOARD)
+   ========================================================================== */
+.main-container {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 62px);
+  background-color: #f8f6f0; 
+}
+
+.sidebar-filtros {
+  width: 300px; 
+  background-color: #ffffff;
+  border-right: 1px solid #e6e2d6;
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  flex-shrink: 0;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.02); 
+}
+
+.sidebar-filtros h2 {
+  font-size: 18px; 
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #2c2a21;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  border-left: 4px solid #ffdb15; 
+  padding-left: 10px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5c5746;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.checkbox-container:hover {
+  color: #000000;
+}
+
+.checkbox-container input {
+  cursor: pointer;
+  accent-color: #ffdb15; 
+  width: 16px;
+  height: 16px;
+}
+
+.select-filtro, .select-sort {
+  padding: 12px;
+  border: 1px solid #d1cbd4;
+  background-color: #ffffff;
+  outline: none;
+  font-size: 14px;
+  color: #4a473c;
+  cursor: pointer;
+}
+
+.select-filtro {
+  width: 100%;
+  border-radius: 8px; 
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.select-filtro:focus {
+  border-color: #ffdb15;
+  box-shadow: 0 0 0 3px rgba(255, 219, 21, 0.2); 
+}
+
+/* Botões Filtrar / Cancelar */
+.btn-filtro {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+.btn-filtrar {
+  background-color: #10b981; 
+  margin-top: auto; 
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}
+
+.btn-filtrar:hover {
+  background-color: #059669;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.btn-cancelar {
+  background-color: #ef4444; 
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.2);
+}
+
+.btn-cancelar:hover {
+  background-color: #dc2626;
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+}
+
+.btn-filtro:active {
+  transform: scale(0.97);
+}
+
+/* Área de Conteúdo da Listagem (Direita) */
+.content-area {
+  flex: 1;
+  padding: 35px 40px; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.content-top-bar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.search-container {
+  flex: 1;
+  position: relative;
+}
+
+.search-container .search-input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 1px solid #d1cbd4;
+  border-radius: 25px; 
+  outline: none;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-container .search-input:focus {
+  border-color: #ffdb15;
+  box-shadow: 0 0 0 3px rgba(255, 219, 21, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a19c8d;
+  font-size: 15px;
+}
+
+.select-sort {
+  width: 200px;
+  border-radius: 25px; 
+  transition: border-color 0.2s;
+}
+
+.select-sort:focus {
+  border-color: #ffdb15;
+}
+
+/* Cards Longos de Itens */
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-item {
+  background-color: #ffffff; 
+  border: 1px solid #e6e2d6;
+  border-radius: 12px; 
+  padding: 24px;
+  display: flex;
+  gap: 28px;
+  align-items: center; 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-item:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  border-color: #ffdb15;
+}
+
+.card-image-placeholder {
+  width: 150px;
+  height: 125px;
+  background-color: #fdfcf9;
+  border: 1px dashed #d1cbd4; 
+  border-radius: 8px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card-image-placeholder::before,
+.card-image-placeholder::after {
+  content: "";
+  position: absolute;
+  width: 130%;
+  height: 1px;
+  background-color: #e6e2d6;
+  top: 50%;
+  left: -15%;
+}
+.card-image-placeholder::before { transform: rotate(35deg); }
+.card-image-placeholder::after { transform: rotate(-35deg); }
+
+.card-info { flex: 1; }
+
+.card-title-placeholder {
+  font-size: 18px; 
+  font-weight: 700;
+  color: #1a1915;
+  margin-bottom: 8px;
+  text-transform: capitalize; 
+}
+
+.card-text-placeholder {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #706b5c; 
+  text-align: justify;
+}
+
+/* Botão Voltar Redondo */
+.back-button-container {
+  margin-top: auto; 
+  padding-top: 15px;
+}
+
+.btn-voltar {
+  background-color: #ffffff;
+  border: 1px solid #d1cbd4;
+  font-size: 20px;
+  cursor: pointer;
+  color: #5c5746;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+  color: #000000;
+  border-color: #ffdb15;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  transform: translateX(-3px); 
+}
+
+/* ==========================================================================
+   6. TELA DE FORMULÁRIOS (PEDIDO DE RESGATE / REGISTRO DE DENÚNCIA)
+   ========================================================================== */
+.rescue-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.rescue-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #333333;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.rescue-form-box {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 750px; 
+  padding: 40px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rescue-badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.rescue-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.rescue-badge-container h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Linhas do Formulário */
+.form-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.form-group-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 25px;
+  gap: 10px;
+}
+
+.rescue-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444444;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.form-group .rescue-label {
+  width: 140px; 
+  text-align: right;
+}
+
+/* CORRIGIDO: Propriedades duplicadas unificadas em um único seletor global de inputs */
+.rescue-input, .rescue-textarea {
+  padding: 10px 14px;
+  border: 1px solid #b3b3b3;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 15px;
+  color: #333333;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.rescue-input {
+  flex: 1;
+}
+
+.rescue-input-short {
+  max-width: 220px;
+  flex-grow: 0;
+}
+
+.rescue-textarea {
+  width: 100%;
+  height: 160px;
+  resize: vertical; 
+}
+
+.rescue-input:focus,
+.rescue-textarea:focus {
+  border-color: #ffdb15;
+  box-shadow: 0 0 5px rgba(255, 219, 21, 0.4);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-enviar {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #777777;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.btn-enviar:hover {
+  background-color: #ffdb15; 
+  border-color: #ffdb15;
+}
+
+.btn-enviar:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   7. POP UPS - DENUNCIA
+   ========================================================================== */
+.rescue-logo{
+  width: 10%;
+}
+
+/* O fundo escurecido que cobre a tela toda */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sombra preta semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* COMEÇA ESCONDIDO POR CONTA DISSO: */
+    display: none;
+}
+
+/* A caixinha branca do conteúdo (igual ao seu desenho) */
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border: 2px solid #333;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Alinhamento dos botões lado a lado */
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between; /* Um de cada lado */
+}
+
+/* Cores dos botões baseadas no seu wireframe */
+.btn-red {
+    background-color: #cc0000;
+    color: white;
+}
+
+.btn-green {
+    background-color: #008000;
+    color: white;
+}
+
+/* Classe utilitária que o JS vai usar para mostrar o modal */
+.modal-overlay.mostrar {
+    display: flex;
+}
+
+/* --- ESTILOS DAS NOVAS TELAS DE RETORNO --- */
+
+/* Animação das bolinhas (Loader) */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.loading-dots span {
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: piscarBolinha 1.4s infinite ease-in-out both;
+}
+
+/* Delay para criar o efeito cascata de movimento nas bolinhas */
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; background-color: #333; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes piscarBolinha {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Ícone redondo de Check (✓) */
+.success-icon {
+  width: 70px;
+  height: 70px;
+  border: 3px solid #008000;
+  border-radius: 50%;
+  color: #008000;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  font-weight: bold;
+}
+
+
+/* ==========================================================================
+   8. MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .form-group .rescue-label {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .rescue-input-short {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .rescue-form-box {
+    padding: 20px;
+  }
+}
+
+
+/* ==========================================================================
+   9. MODAL DE AUTENTICAÇÃO (ESTILO COMPATÍVEL COM O DESIGN ATUAL)
+   ========================================================================== */
+#modal-auth.modal-overlay {
+  background-color: rgba(44, 42, 33, 0.4); /* Tom escuro suave baseado nos seus filtros */
+  backdrop-filter: blur(4px); /* Desfoca levemente o fundo do site */
+}
+
+.auth-box {
+  background-color: #ffffff !important;
+  border: 1px solid #e6e2d6 !important; /* Mesma borda sutil dos seus cards */
+  border-radius: 16px !important;
+  position: relative;
+  max-width: 400px !important;
+  padding: 40px 30px 30px 30px !important;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.auth-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #a19c8d;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.auth-close:hover {
+  color: #ffdb15; /* Amarelo de destaque do seu site */
+  transform: scale(1.1);
+}
+
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f4edd9; /* Fundo creme do site como divisor */
+  padding-bottom: 8px;
+}
+
+.auth-tab {
+  background: none;
+  border: none;
+  color: #706b5c;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px 5px 10px 5px;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.auth-tab.active, .auth-tab:hover {
+  color: #2c2a21;
+}
+
+/* Linha rosa/neon neon embaixo da aba ativa, combinando com o carrossel */
+.auth-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ffdb15, #ff007f); /* Gradiente do sol para o rosa neon */
+}
+
+.auth-box .form-group-block {
+  margin-bottom: 20px;
+}
+
+.auth-box .rescue-label {
+  color: #5c5746 !important;
+  font-size: 12px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.auth-box .rescue-input {
+  width: 100%;
+  border: 1px solid #d1cbd4 !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+}
+
+.auth-box .rescue-input:focus {
+  border-color: #ffdb15 !important;
+  box-shadow: 0 0 0 3px rgba(255, 219, 21, 0.2) !important;
+}
+
+/* Botão Principal Estilo Carrossel/Neon */
+.auth-submit-btn {
+  width: 100%;
+  padding: 14px !important;
+  border-radius: 25px !important;
+  background: linear-gradient(135deg, #ffdb15 0%, #ff5e62 100%) !important; /* Gradiente Synthwave */
+  border: none !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(255, 94, 98, 0.3) !important;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 94, 98, 0.4) !important;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #a19c8d;
+  font-size: 13px;
+  margin: 25px 0;
+}
+
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e6e2d6;
+}
+
+.auth-divider:not(:empty)::before { margin-right: 1em; }
+.auth-divider:not(:empty)::after { margin-left: 1em; }
+
+/* Botão do Google */
+.auth-social-group {
+  width: 100%;
+}
+
+.btn-social.google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #4a473c;
+  border: 1px solid #d1cbd4;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-social.google:hover {
+  background-color: #fdfcf9;
+  border-color: #ffdb15;
+}
+
+.btn-social img {
+  width: 18px;
+  height: 18px;
+}
