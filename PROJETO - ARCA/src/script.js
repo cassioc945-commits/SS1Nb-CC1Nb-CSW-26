@@ -1,138 +1,118 @@
-const slider = document.querySelectorAll('.slider');
-const btnPrev = document.getElementById('prev-button');
-const btnNext = document.getElementById('next-button');
+//============================================================================
+//    1. CARROSSEL / SLIDER (Protegido contra ausência de elementos)
+//============================================================================
+(function() {
+    const slider = document.querySelectorAll('.slider');
+    const btnPrev = document.getElementById('prev-button');
+    const btnNext = document.getElementById('next-button');
 
-let currentSlide = 0;
-let timer;
+    let currentSlide = 0;
+    let timer;
 
+    if (slider.length > 0 && btnPrev && btnNext) {
+        function hideSlider() {
+            slider.forEach(item => item.classList.remove('on'));
+        }
 
-// Só executa SE existir carrossel na página
-if(slider.length > 0 && btnPrev && btnNext){
+        function showSlider() {
+            if (slider[currentSlide]) {
+                slider[currentSlide].classList.add('on');
+            }
+        }
 
-  function hideSlider() {
-    slider.forEach(item => item.classList.remove('on'));
-  }
+        function nextSlider() {
+            hideSlider();
+            currentSlide = (currentSlide === slider.length - 1) ? 0 : currentSlide + 1;
+            showSlider();
+            resetTimer();
+        }
 
-  function showSlider() {
-    slider[currentSlide].classList.add('on');
-  }
+        function prevSlider() {
+            hideSlider();
+            currentSlide = (currentSlide === 0) ? slider.length - 1 : currentSlide - 1;
+            showSlider();
+            resetTimer();
+        }
 
-  function nextSlider() {
-    hideSlider();
+        function startTimer() {
+            timer = setInterval(nextSlider, 2000);
+        }
 
-    if (currentSlide === slider.length - 1) {
-      currentSlide = 0;
-    } else {
-      currentSlide++;
+        function resetTimer() {
+            clearInterval(timer);
+            startTimer();
+        }
+
+        btnNext.addEventListener('click', nextSlider);
+        btnPrev.addEventListener('click', prevSlider);
+
+        startTimer();
     }
+})();
 
-    showSlider();
-    resetTimer();
-  }
+//============================================================================
+//    2. POP UP - CONFIRMAÇÃO DE DENUNCIA E FLUXO DE RETORNO
+//============================================================================
+(function() {
+    let btnAbrirModal = document.getElementById("btnAbrirModal");
+    let modal = document.getElementById("meuModal");
+    let telaCarregando = document.getElementById("telaCarregando");
+    let telaSucesso = document.getElementById("telaSucesso");
 
-  function prevSlider() {
-    hideSlider();
+    let btnCancelar = document.getElementById("btnCancelar");
+    let btnConfirmar = document.getElementById("btnConfirmar");
+    let btnFecharSucesso = document.getElementById("btnFecharSucesso");
 
-    if (currentSlide === 0) {
-      currentSlide = slider.length - 1;
-    } else {
-      currentSlide--;
+    if (btnAbrirModal && modal && btnCancelar && btnConfirmar && telaCarregando && telaSucesso && btnFecharSucesso) {
+        
+        btnAbrirModal.onclick = function(event) {
+            event.preventDefault();
+
+            let elLocal = document.getElementById("local");
+            let elHora = document.getElementById("hora");
+            let elDescricao = document.getElementById("descricao");
+
+            if (elLocal && elHora && elDescricao) {
+                if (elLocal.value.trim() !== "" && elHora.value.trim() !== "" && elDescricao.value.trim() !== "") {
+                    modal.style.display = "flex";
+                } else {
+                    alert("Preencha todos os campos!");
+                }
+            }
+        }
+
+        btnCancelar.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        btnConfirmar.onclick = function() {
+            modal.style.display = "none";
+            telaCarregando.style.display = "flex";
+            setTimeout(revelarSucesso, 3000);
+        }
+
+        function revelarSucesso() {
+            telaCarregando.style.display = "none";
+            telaSucesso.style.display = "flex";
+        }
+
+        btnFecharSucesso.onclick = function() {
+            telaSucesso.style.display = "none";
+            
+            let elLocal = document.getElementById("local");
+            let elHora = document.getElementById("hora");
+            let elDescricao = document.getElementById("descricao");
+
+            if (elLocal) elLocal.value = "";
+            if (elHora) elHora.value = "";
+            if (elDescricao) elDescricao.value = "";
+        }
     }
-
-    showSlider();
-    resetTimer();
-  }
-
-  function startTimer() {
-    timer = setInterval(nextSlider, 2000);
-  }
-
-  function resetTimer() {
-    clearInterval(timer);
-    startTimer();
-  }
-
-  btnNext.addEventListener('click', nextSlider);
-  btnPrev.addEventListener('click', prevSlider);
-
-  startTimer();
-
-}
-
-
+})();
 
 //============================================================================
-//    2.POP UP - CONFIRMAÇÃO DE DENUNCIA E FLUXO DE RETORNO
+//    3. HEADER - NAV & DROPDOWNS GERÉRICOS
 //============================================================================
-
-// ELEMENTOS DAS TELAS
-let btnAbrirModal = document.getElementById("btnAbrirModal");
-let modal = document.getElementById("meuModal");
-let telaCarregando = document.getElementById("telaCarregando");
-let telaSucesso = document.getElementById("telaSucesso");
-
-// ELEMENTOS DOS BOTÕES
-let btnCancelar = document.getElementById("btnCancelar");
-let btnConfirmar = document.getElementById("btnConfirmar");
-let btnFecharSucesso = document.getElementById("btnFecharSucesso");
-
-// Só executa se os elementos principais existirem na página
-if (btnAbrirModal && modal && btnCancelar && btnConfirmar && telaCarregando && telaSucesso && btnFecharSucesso) {
-  
-  // ABRIR MODAL PRINCIPAL
-  btnAbrirModal.onclick = function(event) {
-    event.preventDefault();
-
-    let local = document.getElementById("local").value;
-    let hora = document.getElementById("hora").value;
-    let descricao = document.getElementById("descricao").value;
-
-    if (local != "" && hora != "" && descricao != "") {
-      modal.style.display = "flex";
-    } else {
-      alert("Preencha todos os campos!");
-    }
-  }
-
-  // BOTÃO CANCELAR
-  btnCancelar.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  // BOTÃO CONFIRMAR 
-  btnConfirmar.onclick = function() {
-    modal.style.display = "none";
-    
-    // "Verificando Informações"
-    telaCarregando.style.display = "flex";
-    
-    // 3. Aguarda 3 segundos (3000ms) e executa a função que troca para o sucesso
-    setTimeout(revelarSucesso, 3000);
-  }
-
-  // FUNÇÃO AUXILIAR: Troca o carregando pelo sucesso
-  function revelarSucesso() {
-    telaCarregando.style.display = "none";
-    telaSucesso.style.display = "flex";
-  }
-
-  // BOTÃO CONCLUÍDO (Fecha a última tela)
-  btnFecharSucesso.onclick = function() {
-    telaSucesso.style.display = "none";
-    
-    // Opcional: Limpa os campos após fechar tudo
-    document.getElementById("local").value = "";
-    document.getElementById("hora").value = "";
-    document.getElementById("descricao").value = "";
-  }
-}
-
-//============================================================================
-//    3.HEADER - NAV
-//============================================================================
-
-
-// 1. Função genérica que abre e fecha os menus (Igual à anterior)
 function gerenciarMenu(botao, menu, outroMenu) {
     if (botao && menu) {
         botao.addEventListener('click', function(evento) {
@@ -140,11 +120,7 @@ function gerenciarMenu(botao, menu, outroMenu) {
             if (outroMenu && outroMenu.classList.contains('active')) {
                 outroMenu.classList.remove('active');
             }
-            if (menu.classList.contains('active')) {
-                menu.classList.remove('active');
-            } else {
-                menu.classList.add('active');
-            }
+            menu.classList.toggle('active');
         });
     }
 }
@@ -162,12 +138,9 @@ document.addEventListener('click', function() {
     if (listaPerfil && listaPerfil.classList.contains('active')) { listaPerfil.classList.remove('active'); }
 });
 
-
 // ==========================================================================
-// 2. LÓGICA DE VALIDAÇÃO DE PERFIS E ABAS (REQUISITOS DO PROFESSOR + VISUAL)
+//    4. BASE DE DADOS E VALIDAÇÃO DE PERFIS (REQUISITOS DO PROFESSOR)
 // ==========================================================================
-
-// Base de dados dos usuários e senhas exigidos pelo professor
 const USUARIOS_PERFIS = {
     "cassio": {
         senha: "23082007",
@@ -216,7 +189,7 @@ const USUARIOS_PERFIS = {
     }
 };
 
-// Elementos da Interface capturados do seu código
+// Elementos Globais do Modal de Autenticação
 const caixaConteudoPerfil = document.getElementById('conteudo-perfil');
 const modalAuth = document.getElementById('modal-auth');
 const btnFecharAuth = document.getElementById('btn-fechar-auth');
@@ -225,111 +198,120 @@ const tabCadastro = document.getElementById('tab-cadastro');
 const labelUsuario = document.getElementById('label-usuario');
 const inputUsuario = document.getElementById('auth-email');
 const btnAuthPrincipal = document.getElementById('btn-auth-principal');
+const formAutenticacao = document.getElementById('form-autenticacao');
 
-// Variável de controle para saber qual aba está ativa ('login' ou 'cadastro')
 let modoFormulario = 'login'; 
 
 if (caixaConteudoPerfil && modalAuth) {
     
-    // 1. CAPTURA DE CLIQUES NO DROPDOWN DE PERFIL (ENTRAR / CRIAR CONTA / SAIR)
     caixaConteudoPerfil.addEventListener('click', function(evento) {
-        const textoClique = evento.target.innerText || '';
+        const target = evento.target;
+        const textoClique = target.innerText || '';
         
-        // Abre o modal tanto se clicar em "Entrar" quanto em "Criar uma Conta"
-        if (evento.target.id === 'btn-entrar' || textoClique.includes('Criar uma Conta')) {
+        if (target.id === 'btn-entrar' || textoClique.includes('Criar uma Conta') || textoClique.includes('🔑 Entrar / Login')) {
             evento.preventDefault();
-            modalAuth.style.display = 'flex';
-            
-            // Abre o modal diretamente na aba correta dependendo do link clicado
-            if (textoClique.includes('Criar uma Conta')) {
-                mudarModoFormulario('cadastro');
-            } else {
-                mudarModoFormulario('login');
-            }
+            abrirModalAutenticacao(textoClique.includes('Criar uma Conta') ? 'cadastro' : 'login');
         }
         
-        // Lógica de Logout
-        if (evento.target.id === 'btn-sair') {
+        if (target.id === 'btn-sair' || textoClique.includes('Sair do Painel')) {
             evento.preventDefault();
             renderizarMenuDeslogado();
+            window.usuarioEstaLogado = false; // Sincroniza com o script de adoção
             alert("Você saiu do painel do projeto Arca.");
         }
     });
 
-    // 2. CONTROLE DE FECHAMENTO DO MODAL
-    if (btnFecharAuth) btnFecharAuth.onclick = () => modalAuth.style.display = 'none';
-    modalAuth.onclick = (e) => { if (e.target === modalAuth) modalAuth.style.display = 'none'; };
+    if (btnFecharAuth) {
+        btnFecharAuth.onclick = () => fecharModalAutenticacao();
+    }
+    
+    modalAuth.onclick = (e) => { 
+        if (e.target === modalAuth) fecharModalAutenticacao(); 
+    };
 
-    // 3. ALTERNÂNCIA VISUAL E TEXTUAL ENTRE AS ABAS (ENTRAR / CADASTRAR)
     if (tabLogin && tabCadastro) {
         tabLogin.onclick = () => mudarModoFormulario('login');
         tabCadastro.onclick = () => mudarModoFormulario('cadastro');
     }
 
+    function abrirModalAutenticacao(modo) {
+        // Suporta tanto a ativação por classe quanto por style.display
+        modalAuth.style.display = 'flex';
+        modalAuth.classList.add('active');
+        mudarModoFormulario(modo);
+    }
+
+    function fecharModalAutenticacao() {
+        modalAuth.style.display = 'none';
+        modalAuth.classList.remove('active');
+    }
+
     function mudarModoFormulario(modo) {
         modoFormulario = modo;
         
-        // Limpa os campos para o usuário ao trocar de aba
         if (inputUsuario) inputUsuario.value = "";
-        document.getElementById('auth-senha').value = "";
+        const inputSenha = document.getElementById('auth-senha');
+        if (inputSenha) inputSenha.value = "";
 
         if (modo === 'login') {
-            tabLogin.classList.add('active');
-            tabCadastro.classList.remove('active');
+            if (tabLogin) tabLogin.classList.add('active');
+            if (tabCadastro) tabCadastro.classList.remove('active');
             if (labelUsuario) labelUsuario.innerText = "Usuário / Perfil";
             if (inputUsuario) inputUsuario.placeholder = "Ex: tutor, candidato, ong...";
-            btnAuthPrincipal.innerText = 'Entrar';
+            if (btnAuthPrincipal) btnAuthPrincipal.innerText = 'Entrar';
         } else {
-            tabCadastro.classList.add('active');
-            tabLogin.classList.remove('active');
+            if (tabCadastro) tabCadastro.classList.add('active');
+            if (tabLogin) tabLogin.classList.remove('active');
             if (labelUsuario) labelUsuario.innerText = "E-mail para Cadastro";
             if (inputUsuario) inputUsuario.placeholder = "seu@email.com";
-            btnAuthPrincipal.innerText = 'Criar Conta';
+            if (btnAuthPrincipal) btnAuthPrincipal.innerText = 'Criar Conta';
         }
     }
 
-    // 4. INTERCEPÇÃO DO FORMULÁRIO (ENVIO)
-    document.getElementById('form-autenticacao').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const valorUsuario = inputUsuario.value.trim();
-        const senhaDigitada = document.getElementById('auth-senha').value;
+    if (formAutenticacao) {
+        formAutenticacao.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const valorUsuario = inputUsuario ? inputUsuario.value.trim() : '';
+            const elSenha = document.getElementById('auth-senha');
+            const senhaDigitada = elSenha ? elSenha.value : '';
 
-        // FLUXO A: USUÁRIO TENTANDO FAZER LOGIN (Regra do Professor)
-        if (modoFormulario === 'login') {
-            const usuarioMinusculo = valorUsuario.toLowerCase(); // Evita erros com Letras Maiúsculas
+            if (modoFormulario === 'login') {
+                const usuarioMinusculo = valorUsuario.toLowerCase();
 
-            if (USUARIOS_PERFIS[usuarioMinusculo]) {
-                const perfil = USUARIOS_PERFIS[usuarioMinusculo];
-                
-                // Valida a senha correspondente
-                if (perfil.senha === senhaDigitada) {
-                    modalAuth.style.display = 'none';
-                    renderizarMenuLogado(usuarioMinusculo, perfil);
-                    alert(`Login realizado com sucesso como: ${perfil.nome}!`);
+                if (USUARIOS_PERFIS[usuarioMinusculo]) {
+                    const perfil = USUARIOS_PERFIS[usuarioMinusculo];
+                    
+                    if (perfil.senha === senhaDigitada) {
+                        fecharModalAutenticacao();
+                        renderizarMenuLogado(usuarioMinusculo, perfil);
+                        
+                        // Define globalmente para o outro bloco reconhecer o login
+                        window.usuarioEstaLogado = true; 
+                        alert(`Login realizado com sucesso como: ${perfil.nome}!`);
+
+                        // Dispara evento personalizado caso o fluxo de adoção esteja esperando
+                        document.dispatchEvent(new CustomEvent('loginSucesso'));
+                    } else {
+                        alert("Senha incorreta para este perfil!");
+                    }
                 } else {
-                    alert("Senha incorreta para este perfil!");
+                    alert("Usuário não encontrado! Para testes escolares, use: tutor, candidato, ong ou prefeitura.");
                 }
             } else {
-                alert("Usuário não encontrado! Para testes escolares, use: tutor, candidato, ong ou prefeitura.");
+                alert(`O e-mail "${valorUsuario}" foi detectado pelo sistema! Como este site está em ambiente de testes, os perfis já foram pré-configurados. Por favor, utilize a aba "Entrar".`);
+                mudarModoFormulario('login');
             }
-        } 
-        // FLUXO B: USUÁRIO TENTANDO CADASTRAR (Simulação Demonstrativa)
-        else {
-            alert(`O e-mail "${valorUsuario}" foi detectado pelo sistema! Como este site está em ambiente de testes e avaliação, os perfis já foram pré-configurados. Por favor, utilize a aba "Entrar" com as credenciais do trabalho.`);
-            mudarModoFormulario('login'); // Joga o usuário de volta para o login de forma elegante
-        }
-    });
+        });
+    }
 
-    // 5. SIMULAÇÃO DO BOTÃO DO GOOGLE (Mantido apenas pelo Visual)
     const btnGoogle = document.getElementById('btn-login-google');
     if (btnGoogle) {
         btnGoogle.onclick = function() {
-            alert("O login via Google está ativo apenas como demonstração de interface. Use os perfis de validação locais na aba 'Entrar'.");
+            alert("O login via Google está ativo apenas como demonstração de interface. Use os perfis locais na aba 'Entrar'.");
         };
     }
 
-    // 6. FUNÇÃO SEMÂNTICA: RENDERIZA OS LINKS EXCLUSIVOS DE CADA PERFIL
     function renderizarMenuLogado(idUsuario, dadosPerfil) {
         let linksHTML = '';
         dadosPerfil.links.forEach(link => {
@@ -350,7 +332,6 @@ if (caixaConteudoPerfil && modalAuth) {
         `;
     }
 
-    // 7. FUNÇÃO: RETORNA O MENU AO ESTADO DESLOGADO ORIGINAL
     function renderizarMenuDeslogado() {
         caixaConteudoPerfil.innerHTML = `
             <ul class="dropdown-links">
@@ -358,5 +339,156 @@ if (caixaConteudoPerfil && modalAuth) {
                 <li><a href="#">📝 Criar uma Conta</a></li>
             </ul>
         `;
+    }
+}
+
+//============================================================================
+//    5. RENDERIZAÇÃO DINÂMICA DO PET (PÁGINA DE DETALHES)
+//============================================================================
+const animais = [
+    {
+        id: 1,
+        nome: "Thor",
+        subtitulo: '"Um companheiro cheio de energia, carinho e amor."',
+        imagem: "../../public/images/thor-cao.jpg", 
+        titulo_descricao: "Sobre o Thor",
+        descricao: "Thor está procurando um lar cheio de amor e cuidado. Ele ama brincar, correr, explorar novos lugares e receber carinho de toda a família.",
+        idade: "2 anos", porte: "Médio", sexo: "Macho", temperamento: "Dócil"
+    },
+    {
+        id: 2,
+        nome: "Bidu",
+        subtitulo: '"Um amigo leal e calmo para todas as horas."',
+        imagem: "../../public/images/bidu-cao.jpeg",
+        titulo_descricao: "Sobre o Bidu",
+        descricao: "Bidu ama carinho, passeios ao ar livre e é extremamente companheiro.",
+        idade: "3 anos", porte: "Pequeno", sexo: "Macho", temperamento: "Calmo"
+    },
+    {
+        id: 3,
+        nome: "Luna",
+        subtitulo: '"Um companheiro cheio de energia..."',
+        imagem: "../../public/images/luna-cao.jpg", 
+        titulo_descricao: "Sobre a Luna",
+        descricao: "Luna está procurando um lar cheio de amor e cuidado.",
+        idade: "5 meses", porte: "Médio", sexo: "Fêmea", temperamento: "Dócil"
+    },
+    {
+        id: 4,
+        nome: "Max",
+        subtitulo: '"Um amigo leal..."',
+        imagem: "../../public/images/max-cao.jpeg",
+        titulo_descricao: "Sobre o Max",
+        descricao: "Max ama carinho, passeios ao ar livre e é extremamente companheiro.",
+        idade: "3 anos", porte: "Pequeno", sexo: "Macho", temperamento: "Calmo"
+    },
+    {
+        id: 5,
+        nome: "Rex",
+        subtitulo: '"Um amigo leal..."',
+        imagem: "../../public/images/rex-cao.jpeg",
+        titulo_descricao: "Sobre o Rex",
+        descricao: "Rex ama carinho, passeios ao ar livre e é extremamente companheiro.",
+        idade: "4 anos", porte: "Pequeno", sexo: "Macho", temperamento: "Calmo"
+    }
+];
+
+function pegarId() {
+    let parametros = window.location.search;
+    let url = new URLSearchParams(parametros);
+    return url.get("id");
+}
+
+function carregarAnimal() {
+    let id = pegarId();
+    if (!id) return; // Se não houver ID na URL, sai da função sem dar erro
+
+    let animalEncontrado = animais.find(animal => animal.id == id);
+
+    // Só tenta injetar se os elementos base existirem na página
+    const elNome = document.getElementById("animal-nome");
+    if (animalEncontrado && elNome) {
+        elNome.innerText = animalEncontrado.nome;
+        
+        const elImg = document.getElementById("animal-imagem");
+        if (elImg) elImg.src = animalEncontrado.imagem;
+        
+        const elSobre = document.getElementById("sobre_animal");
+        if (elSobre) elSobre.innerText = animalEncontrado.titulo_descricao;
+        
+        const elDesc = document.getElementById("animal-descricao");
+        if (elDesc) elDesc.innerText = animalEncontrado.descricao;
+        
+        let subtituloElement = document.querySelector(".subtitulo-animal");
+        if (subtituloElement) subtituloElement.innerText = animalEncontrado.subtitulo;
+
+        // Injeções com seletores compostos protegidas por verificação individual
+        let c1 = document.querySelector(".info-card-clean:nth-child(1) .info-value");
+        let c2 = document.querySelector(".info-card-clean:nth-child(2) .info-value");
+        let c3 = document.querySelector(".info-card-clean:nth-child(3) .info-value");
+        let c4 = document.querySelector(".info-card-clean:nth-child(4) .info-value");
+
+        if (c1) c1.innerText = animalEncontrado.idade;
+        if (c2) c2.innerText = animalEncontrado.porte;
+        if (c3) c3.innerText = animalEncontrado.sexo;
+        if (c4) c4.innerText = animalEncontrado.temperamento;
+    }
+}
+
+function voltarPagina() {
+    window.history.back();
+}
+
+// Inicializa o carregamento do pet de forma segura
+carregarAnimal();
+
+// ==========================================================================
+//    6. CONTROLADOR DE AÇÕES DE ADOÇÃO / FAVORITO (BLINDADO)
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", function() {
+    const btnAdoteAqui = document.getElementById('botao-adotar');
+    const btnFavoritar = document.getElementById('botao-favoritar');
+
+    if (btnAdoteAqui) {
+        btnAdoteAqui.addEventListener('click', function() {
+            verificarEExecutarPet('adotar');
+        });
+    }
+    if (btnFavoritar) {
+        btnFavoritar.addEventListener('click', function() {
+            verificarEExecutarPet('favoritar');
+        });
+    }
+
+    function verificarEExecutarPet(acao) {
+        // Se o usuário já estiver logado pelo sistema do professor
+        if (window.usuarioEstaLogado === true) {
+            executarAcaoFinal(acao);
+        } else {
+            // Se não estiver logado, salva a intenção na variável global do Bloco 4
+            acaoPendente = acao; 
+            
+            // Força o modal a abrir direto na marra, sem depender de nenhuma outra função
+            const modalAlvo = document.getElementById('modal-auth');
+            if (modalAlvo) {
+                modalAlvo.style.display = 'flex';
+                modalAlvo.classList.add('active');
+                
+                // Força a aba a iniciar em 'login'
+                const tLogin = document.getElementById('tab-login');
+                if (tLogin) tLogin.click(); 
+            } else {
+                alert("Erro crítico: O código do modal de login não foi encontrado dentro deste arquivo HTML!");
+            }
+        }
+    }
+});
+
+function executarAcaoFinal(acao) {
+    if (acao === 'adotar') {
+        // Como a página do Thor está em subpastas, certifique-se de que o caminho do formulário está correto:
+        window.location.href = "formulario-adocao.html"; 
+    } else if (acao === 'favoritar') {
+        alert("Animal adicionado aos seus favoritos com sucesso!");
     }
 }

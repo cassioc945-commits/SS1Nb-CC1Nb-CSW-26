@@ -183,7 +183,7 @@ body {
 /* USER HEADER */
 .user-header {
   padding: 10px 20px;
-  color: white;
+  color: #000;
   font-family: sans-serif;
 }
 
@@ -350,6 +350,30 @@ body {
 /* ==========================================================================
    5. TELA DE FILTROS E LISTAGEM (DASHBOARD)
    ========================================================================== */
+.card-image-real{
+  width: 150px;
+  height: 125px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  flex-shrink: 0;
+}
+
+.detalhes-container{
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 40px auto;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+
+  padding: 20px;
+}
+
 .main-container {
   display: flex;
   flex: 1;
@@ -619,6 +643,16 @@ body {
 /* ==========================================================================
    6. TELA DE FORMULÁRIOS (PEDIDO DE RESGATE / REGISTRO DE DENÚNCIA)
    ========================================================================== */
+
+ 
+.registrar{
+  min-height: calc(100vh - 70px); 
+  justify-content: center;        
+  align-items: center;           
+  padding: 20px;
+} 
+
+
 .rescue-main-container {
   display: flex;
   flex-direction: column;
@@ -900,17 +934,17 @@ body {
    ========================================================================== */
 #modal-auth.modal-overlay {
   background-color: rgba(44, 42, 33, 0.4); /* Tom escuro suave baseado nos seus filtros */
-  backdrop-filter: blur(4px); /* Desfoca levemente o fundo do site */
+  backdrop-filter: blur(10px); /* Desfoca levemente o fundo do site */
 }
 
 .auth-box {
-  background-color: #ffffff !important;
-  border: 1px solid #e6e2d6 !important; /* Mesma borda sutil dos seus cards */
-  border-radius: 16px !important;
+  background-color: #ffffff ;
+  border: 1px solid #e6e2d6 ; /* Mesma borda sutil dos seus cards */
+  border-radius: 16px ;
   position: relative;
-  max-width: 400px !important;
-  padding: 40px 30px 30px 30px !important;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1) !important;
+  max-width: 400px ;
+  padding: 40px 30px 30px 30px ;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .auth-close {
@@ -926,7 +960,7 @@ body {
 }
 
 .auth-close:hover {
-  color: #ffdb15; /* Amarelo de destaque do seu site */
+  color: #ffdb15; 
   transform: scale(1.1);
 }
 
@@ -1064,3 +1098,239 @@ body {
   width: 18px;
   height: 18px;
 }
+
+/* ==========================================================
+   PÁGINA DE DETALHES / ADOÇÃO (ESTILIZAÇÃO MODERNA)
+========================================================== */
+
+.detalhes-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; 
+  gap: 50px;
+  padding: 0 20px;
+}
+
+
+.coluna-midia {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-voltar-topo {
+  background: none;
+  border: none;
+  color: #706b5c;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.btn-voltar-topo:hover {
+  color: #804e25;
+}
+
+.imagem-container-premium {
+  position: relative;
+  width: 100%;
+}
+
+.imagem-principal-nova {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(44, 42, 33, 0.08);
+}
+
+.tag-status-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #ffffff;
+  color: #10b981;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- COLUNA DIREITA: CONTEÚDO --- */
+.coluna-conteudo {
+  background-color: #ffffff;
+  border: 1px solid #e6e2d6;
+  border-radius: 24px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.01);
+  justify-content: center;
+}
+
+.header-animal h1 {
+  font-size: 42px;
+  color: #2c2a21;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.subtitulo-animal {
+  font-size: 16px;
+  color: #7c7561;
+  font-style: italic;
+}
+
+/* Grid Técnico Elegante */
+.informacoes-grid-compacto {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.info-card-clean {
+  background-color: #fbfbfa;
+  border: 1px solid #ededeb;
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #8c8570;
+}
+
+.info-value {
+  font-size: 15px;
+  color: #2c2a21;
+  font-weight: 700;
+}
+
+/* Biografia e Textos */
+.biografia-box h2 {
+  font-size: 20px;
+  color: #2c2a21;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+#animal-descricao {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5c5746;
+  text-align: justify;
+}
+
+.divisor-suave {
+  border: 0;
+  border-top: 1px solid #f0eee9;
+  margin: 4px 0;
+}
+
+/* Requisitos */
+.requisitos-box-clean h3 {
+  font-size: 16px;
+  color: #2c2a21;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.lista-requisitos-check {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-requisitos-check li {
+  font-size: 14px;
+  color: #6c6653;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-marcador {
+  color: #10b981;
+  font-weight: bold;
+}
+
+/* Botões de Ação de Alto Impacto */
+.acoes-container-fixo {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn-principal-adotar {
+  flex: 2;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-principal-adotar:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-outline-favoritar {
+  flex: 1;
+  background-color: transparent;
+  color: #e11d48;
+  border: 2px solid #fecdd3;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-favoritar:hover {
+  background-color: #fff1f2;
+  border-color: #fda4af;
+  transform: translateY(-2px);
+}
+
+/* Ajuste de responsividade refinado */
+@media (max-width: 990px) {
+  .detalhes-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin: 20px auto;
+  }
+  
+  .imagem-principal-nova {
+    height: 360px;
+  }
+  
+  .coluna-conteudo {
+    padding: 30px;
+  }
+}
+
+
+
+
+
+
+
