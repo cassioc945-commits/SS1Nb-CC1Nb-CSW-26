@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Web Page</title>
+
+    <link rel="stylesheet" href="./src/style.css">
+
+</head>
+
+<body>
+
+    <header class="container-nav">
+        <nav class="navegacao">
+            <ul class="menu-lista">
+
+                <li class="menu-item-container">
+                    <button class="dropdown-trigger">
+                        <img src="./public/icones-images/menu.png" alt="menu-arca" class="icone-topo">
+                    </button>
+
+                    <div class="dropdown-menu">
+                        <ul class="dropdown-links">
+                            <li><a href="index.html">🏠︎ Menu</a></li>
+                            <li><a href="./pages/adocao/index.html">🐾 Adotar</a></li>
+                            <li><a href="./pages/castracao/index.html">🛠️ Castração</a></li>
+                            <li><a href="./pages/denuncia/index.html">🚨 Fazer Denúncia</a></li>
+                            <li><a href="./pages/pedido_resgate/index.html">🚨 Acionar Resgate</a></li>
+                            <li><a href="#ajuda">📱 Ouvidoria</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="barra-pesquisa">
+                    <input class="search" type="search" placeholder="🔎︎ Pesquisar">
+                </li>
+
+                <li class="bloco-direita-container">
+                    <ul class="menu-lista-02">
+                        <li><img src="./public/icones-images/acessibilidade.png" alt="acessibilidade" class="ajuste-icon">
+                        </li>
+                        <li class="menu-item-container">
+                            <button class="dropdown-trigger">
+                                <img src="./public/icones-images/perfil.png" alt="perfil" class="ajuste-icon">
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <div id="conteudo-perfil">
+                                    <ul class="dropdown-links">
+                                        <li><a href="#" id="btn-entrar">🔑 Entrar / Login</a></li>
+                                        <li><a href="#">📝 Criar uma Conta</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <section class="carrossel">
+        <button class="botao-esquerda" id="prev-button"><img src="./public/icones-images/L-seta.png"
+                alt="prev-button"></button>
+        <div class="container">
+            <img src="./public/images/1920x1080-pictures-zog2vma3qpmt2o9l.jpg" alt="abrigo-animais" class="slider on ">
+            <img src="./public/images/1920x1080.png" alt="abrigo-animais" class="slider">
+            <img src="./public/images/1920x1080-hd-space-n7pksg9648pvv2rx.jpg" alt="abrigo-animais" class="slider">
+        </div>
+        <button class="botao-direita" id="next-button"><img src="./public/icones-images/R-seta.png"
+                alt="next-button"></button>
+    </section>
+
+    <section class="container-section">
+        <h2 class="sub-pag01">ACESSO RÁPIDO!</h2>
+
+        <div class="container-cards">
+            <a href="./pages/adocao/index.html" class="card">
+                <img src="./public/icones-images/gato.png" alt="Ícone de Adoção">
+                <span>Adoção</span>
+            </a>
+
+            <a href="./pages/castracao/index.html" class="card">
+                <img src="./public/icones-images/servico.png" alt="Ícone de Castração">
+                <span>Castração</span>
+            </a>
+
+            <a href="./pages/denuncia/index.html" class="card">
+                <img src="./public/icones-images/alerta.png" alt="Ícone de Denuncia">
+                <span>Denuncia</span>
+            </a>
+
+            <a href="./pages/pedido_resgate/index.html" class="card">
+                <img src="./public/icones-images/animal-rescue.png" alt="Ícone de Resgate">
+                <span>Resgate</span>
+            </a>
+        </div>
+    </section>
+
+
+
+   <div id="modal-auth" class="modal-overlay">
+    <div class="modal-content auth-box">
+        <button id="btn-fechar-auth" class="auth-close">&times;</button>
+        
+        <div class="auth-tabs">
+            <button id="tab-login" class="auth-tab active">Entrar</button>
+            <button id="tab-cadastro" class="auth-tab">Criar Conta</button>
+        </div>
+
+        <form id="form-autenticacao">
+            <div class="form-group-block">
+                <label class="rescue-label" id="label-usuario" for="auth-email">Usuário / Perfil</label>
+                <input type="text" id="auth-email" class="rescue-input" placeholder="Ex: tutor, candidato, ong..." required autocomplete="off">
+            </div>
+            
+            <div class="form-group-block">
+                <label class="rescue-label" for="auth-senha">Senha</label>
+                <input type="password" id="auth-senha" class="rescue-input" placeholder="Sua senha" required>
+            </div>
+
+            <button type="submit" id="btn-auth-principal" class="btn-enviar auth-submit-btn">Entrar</button>
+        </form>
+
+        <div class="auth-divider">
+            <span>ou continue com</span>
+        </div>
+
+        <div class="auth-social-group">
+            <button id="btn-login-google" type="button" class="btn-social google">
+                <img src="./public/icones-images/google.png" alt="Google">
+                Entrar com o Google
+            </button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="./src/script.js"></script>
+</body>
+
+</html> 
