@@ -96,41 +96,31 @@
             <button class="btn-filtro btn-filtrar">Filtrar</button>
             <button class="btn-filtro btn-cancelar">Cancelar</button>
         </aside>
-        
+
 
         <main class="content-area">
 
-            <!-- TOPO -->
             <div class="content-top-bar">
-
                 <div class="search-container">
                     <span class="search-icon">&#128269;</span>
 
                     <input type="search" class="search-input" placeholder="Pesquisar animal">
                 </div>
-
                 <select class="select-sort">
-
                     <option value="" disabled selected>
                         Ordenar
                     </option>
-
                     <option value="recentes">
                         Mais recentes
                     </option>
-
                     <option value="relevancia">
                         Relevância
                     </option>
-
                 </select>
-
             </div>
 
-            <!-- LISTA DE CARDS -->
             <section class="cards-list">
 
-                <!-- THOR -->
                 <a href="../../pages/adocao/adocao.html?id=1" class="link-unline">
                     <article class="card-item">
                         <img src="../../public/images/thor-cao.jpg" class="card-image-real">
@@ -147,7 +137,6 @@
                     </article>
                 </a>
 
-                <!-- BIDU -->
                 <a href="../../pages/adocao/adocao.html?id=2" class="link-unline">
                     <article class="card-item">
                         <img src="../../public/images/bidu-cao.jpeg" class="card-image-real">
@@ -164,7 +153,6 @@
                     </article>
                 </a>
 
-                <!-- LUNA -->
                 <a href="../../pages/adocao/adocao.html?id=3" class="link-unline">
                     <article class="card-item">
                         <img src="../../public/images/luna-cao.jpg" class="card-image-real">
@@ -181,7 +169,6 @@
                     </article>
                 </a>
 
-                <!-- MAX -->
                 <a href="../../pages/adocao/adocao.html?id=2" class="link-unline">
                     <article class="card-item">
                         <img src="../../public/images/max-cao.jpg" class="card-image-real">
@@ -198,7 +185,6 @@
                     </article>
                 </a>
 
-                <!-- MEL -->
                 <a href="../../pages/adocao/adocao.html?id=2" class="link-unline">
                     <article class="card-item">
                         <img src="../../public/images/rex-cao.jpg" class="card-image-real">
@@ -214,27 +200,13 @@
                         </div>
                     </article>
                 </a>
-
             </section>
 
-            <!-- BOTÃO VOLTAR -->
-            <div class="back-button-container">
-
-                <button class="btn-voltar" title="Voltar">
-
-                    <a class="link-unline" href="../../index.html">
-
-                        &#8592;
-
-                    </a>
-
-                </button>
-
-            </div>
+            <button class="btn-back" onclick="window.history.back()">
+                <span class="material-symbols-outlined">arrow_left_alt</span>
+            </button>
 
         </main>
-        ```
-
 
         <script src="../../src/script.js"></script>
 </body>

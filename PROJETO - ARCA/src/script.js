@@ -1,7 +1,7 @@
 //============================================================================
 //    1. CARROSSEL / SLIDER (Protegido contra ausência de elementos)
 //============================================================================
-(function() {
+(function () {
     const slider = document.querySelectorAll('.slider');
     const btnPrev = document.getElementById('prev-button');
     const btnNext = document.getElementById('next-button');
@@ -51,62 +51,100 @@
 })();
 
 //============================================================================
-//    2. POP UP - CONFIRMAÇÃO DE DENUNCIA E FLUXO DE RETORNO
+//    2. POP UP - CONFIRMAÇÃO E FLUXO DE RETORNO (VERSÃO PÁGINAS MÚLTIPLAS)
 //============================================================================
-(function() {
-    let btnAbrirModal = document.getElementById("btnAbrirModal");
-    let modal = document.getElementById("meuModal");
-    let telaCarregando = document.getElementById("telaCarregando");
-    let telaSucesso = document.getElementById("telaSucesso");
+(function () {
+    let btnAbrirModal = document.querySelectorAll(".btnAbrirModal"); 
+    let modal = document.querySelector(".meuModal");
+    let telaCarregando = document.querySelector(".telaCarregando");
+    let telaSucesso = document.querySelector(".telaSucesso");
 
-    let btnCancelar = document.getElementById("btnCancelar");
-    let btnConfirmar = document.getElementById("btnConfirmar");
-    let btnFecharSucesso = document.getElementById("btnFecharSucesso");
+    let botoesCancelar = document.querySelectorAll(".btnCancelar");
+    let botoesConfirmar = document.querySelectorAll(".btnConfirmar");
+    let botoesFecharSucesso = document.querySelectorAll(".btnFecharSucesso");
 
-    if (btnAbrirModal && modal && btnCancelar && btnConfirmar && telaCarregando && telaSucesso && btnFecharSucesso) {
-        
-        btnAbrirModal.onclick = function(event) {
-            event.preventDefault();
+    if (modal && telaCarregando && telaSucesso) {
 
-            let elLocal = document.getElementById("local");
-            let elHora = document.getElementById("hora");
-            let elDescricao = document.getElementById("descricao");
+        // AÇÃO: Validar campos e abrir o Modal correto
+        btnAbrirModal.forEach(function(botao) {
+            botao.onclick = function (event) {
+                event.preventDefault();
 
-            if (elLocal && elHora && elDescricao) {
-                if (elLocal.value.trim() !== "" && elHora.value.trim() !== "" && elDescricao.value.trim() !== "") {
-                    modal.style.display = "flex";
-                } else {
-                    alert("Preencha todos os campos!");
+                // 1. Tenta capturar os elementos da página de DENÚNCIA
+                let elLocal = document.getElementById("local");
+                let elHora = document.getElementById("hora");
+                let elDescricao = document.getElementById("descricao");
+
+                // 2. Tenta capturar os elementos da página de ADOTAR/CADASTRO
+                let elNome = document.getElementById("nome");
+                let elEmail = document.getElementById("email");
+                let elCpf = document.getElementById("cpf");
+
+                let formularioValido = false;
+
+                // Fluxo se estiver na página de DENÚNCIA
+                if (elLocal && elHora && elDescricao) {
+                    if (elLocal.value.trim() !== "" && elHora.value.trim() !== "" && elDescricao.value.trim() !== "") {
+                        formularioValido = true;
+                    }
+                } 
+                // Fluxo se estiver na página de ADOTAR (Valida os 3 primeiros campos principais)
+                else if (elNome && elEmail && elCpf) {
+                    if (elNome.value.trim() !== "" && elEmail.value.trim() !== "" && elCpf.value.trim() !== "") {
+                        formularioValido = true;
+                    }
                 }
-            }
-        }
 
-        btnCancelar.onclick = function() {
-            modal.style.display = "none";
-        }
+                // Se passou na validação da respectiva página, abre o modal
+                if (formularioValido) {
+                    modal.classList.add("mostrar");
+                } else {
+                    alert("Preencha os campos obrigatórios do formulário!");
+                }
+            };
+        });
 
-        btnConfirmar.onclick = function() {
-            modal.style.display = "none";
-            telaCarregando.style.display = "flex";
-            setTimeout(revelarSucesso, 3000);
-        }
+        // AÇÃO: Botão Cancelar (Fecha o modal)
+        botoesCancelar.forEach(function(btn) {
+            btn.onclick = function () {
+                modal.classList.remove("mostrar");
+            };
+        });
+
+        // AÇÃO: Botão Confirmar (Fecha modal -> Carregando -> Sucesso)
+        botoesConfirmar.forEach(function(btn) {
+            btn.onclick = function () {
+                modal.classList.remove("mostrar");
+                telaCarregando.classList.add("mostrar");
+                setTimeout(revelarSucesso, 3000);
+            };
+        });
 
         function revelarSucesso() {
-            telaCarregando.style.display = "none";
-            telaSucesso.style.display = "flex";
+            telaCarregando.classList.remove("mostrar");
+            telaSucesso.classList.add("mostrar");
         }
 
-        btnFecharSucesso.onclick = function() {
-            telaSucesso.style.display = "none";
-            
-            let elLocal = document.getElementById("local");
-            let elHora = document.getElementById("hora");
-            let elDescricao = document.getElementById("descricao");
+        // AÇÃO ADJUSTADA: Botão Concluído (Redireciona se for Adotar, limpa se for Denúncia)
+        botoesFecharSucesso.forEach(function(btn) {
+            btn.onclick = function () {
+                telaSucesso.classList.remove("mostrar");
 
-            if (elLocal) elLocal.value = "";
-            if (elHora) elHora.value = "";
-            if (elDescricao) elDescricao.value = "";
-        }
+                // Checa se o input "nome" existe na página atual para saber se é a de adoção
+                let ehPaginaAdotar = document.getElementById("nome") !== null;
+
+                if (ehPaginaAdotar) {
+                    // Se for a página de adotar, redireciona para a listagem/home (ajuste o caminho se precisar)
+                    window.location.href = "../../pages/adocao/check.html";
+                } else {
+                    // Se for a página de denúncia, apenas limpa os campos e continua ali
+                    let todosInputs = document.querySelectorAll(".rescue-form-box input, .rescue-form-box textarea");
+                    todosInputs.forEach(input => {
+                        input.value = "";
+                    });
+                }
+            };
+        });
     }
 })();
 
@@ -115,7 +153,7 @@
 //============================================================================
 function gerenciarMenu(botao, menu, outroMenu) {
     if (botao && menu) {
-        botao.addEventListener('click', function(evento) {
+        botao.addEventListener('click', function (evento) {
             evento.stopPropagation();
             if (outroMenu && outroMenu.classList.contains('active')) {
                 outroMenu.classList.remove('active');
@@ -133,7 +171,7 @@ const listaPerfil = document.querySelector('.menu-lista-02 .dropdown-menu');
 gerenciarMenu(btnApps, listaApps, listaPerfil);
 gerenciarMenu(btnPerfil, listaPerfil, listaApps);
 
-document.addEventListener('click', function() {
+document.addEventListener('click', function () {
     if (listaApps && listaApps.classList.contains('active')) { listaApps.classList.remove('active'); }
     if (listaPerfil && listaPerfil.classList.contains('active')) { listaPerfil.classList.remove('active'); }
 });
@@ -148,7 +186,7 @@ const USUARIOS_PERFIS = {
         links: [
             { texto: "👤 Meus Animais", url: "#meus-animais" },
             { texto: "🛠️ Solicitar Adoção", url: "#solicitar-adocao" },
-            { texto: "📅 Agendar Consultas", url: "#consultas" }
+            { texto: "📅 Favoritos", url: "#consultas" }
         ]
     },
     "tutor": {
@@ -157,7 +195,7 @@ const USUARIOS_PERFIS = {
         links: [
             { texto: "👤 Meus Animais", url: "#meus-animais" },
             { texto: "🛠️ Solicitar Adoção", url: "#solicitar-adocao" },
-            { texto: "📅 Agendar Consultas", url: "#consultas" }
+            { texto: "📅 Favoritos", url: "#consultas" }
         ]
     },
     "candidato": {
@@ -200,19 +238,19 @@ const inputUsuario = document.getElementById('auth-email');
 const btnAuthPrincipal = document.getElementById('btn-auth-principal');
 const formAutenticacao = document.getElementById('form-autenticacao');
 
-let modoFormulario = 'login'; 
+let modoFormulario = 'login';
 
 if (caixaConteudoPerfil && modalAuth) {
-    
-    caixaConteudoPerfil.addEventListener('click', function(evento) {
+
+    caixaConteudoPerfil.addEventListener('click', function (evento) {
         const target = evento.target;
         const textoClique = target.innerText || '';
-        
+
         if (target.id === 'btn-entrar' || textoClique.includes('Criar uma Conta') || textoClique.includes('🔑 Entrar / Login')) {
             evento.preventDefault();
             abrirModalAutenticacao(textoClique.includes('Criar uma Conta') ? 'cadastro' : 'login');
         }
-        
+
         if (target.id === 'btn-sair' || textoClique.includes('Sair do Painel')) {
             evento.preventDefault();
             renderizarMenuDeslogado();
@@ -224,9 +262,9 @@ if (caixaConteudoPerfil && modalAuth) {
     if (btnFecharAuth) {
         btnFecharAuth.onclick = () => fecharModalAutenticacao();
     }
-    
-    modalAuth.onclick = (e) => { 
-        if (e.target === modalAuth) fecharModalAutenticacao(); 
+
+    modalAuth.onclick = (e) => {
+        if (e.target === modalAuth) fecharModalAutenticacao();
     };
 
     if (tabLogin && tabCadastro) {
@@ -248,7 +286,7 @@ if (caixaConteudoPerfil && modalAuth) {
 
     function mudarModoFormulario(modo) {
         modoFormulario = modo;
-        
+
         if (inputUsuario) inputUsuario.value = "";
         const inputSenha = document.getElementById('auth-senha');
         if (inputSenha) inputSenha.value = "";
@@ -269,9 +307,9 @@ if (caixaConteudoPerfil && modalAuth) {
     }
 
     if (formAutenticacao) {
-        formAutenticacao.addEventListener('submit', function(e) {
+        formAutenticacao.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const valorUsuario = inputUsuario ? inputUsuario.value.trim() : '';
             const elSenha = document.getElementById('auth-senha');
             const senhaDigitada = elSenha ? elSenha.value : '';
@@ -281,13 +319,13 @@ if (caixaConteudoPerfil && modalAuth) {
 
                 if (USUARIOS_PERFIS[usuarioMinusculo]) {
                     const perfil = USUARIOS_PERFIS[usuarioMinusculo];
-                    
+
                     if (perfil.senha === senhaDigitada) {
                         fecharModalAutenticacao();
                         renderizarMenuLogado(usuarioMinusculo, perfil);
-                        
+
                         // Define globalmente para o outro bloco reconhecer o login
-                        window.usuarioEstaLogado = true; 
+                        window.usuarioEstaLogado = true;
                         alert(`Login realizado com sucesso como: ${perfil.nome}!`);
 
                         // Dispara evento personalizado caso o fluxo de adoção esteja esperando
@@ -307,7 +345,7 @@ if (caixaConteudoPerfil && modalAuth) {
 
     const btnGoogle = document.getElementById('btn-login-google');
     if (btnGoogle) {
-        btnGoogle.onclick = function() {
+        btnGoogle.onclick = function () {
             alert("O login via Google está ativo apenas como demonstração de interface. Use os perfis locais na aba 'Entrar'.");
         };
     }
@@ -350,7 +388,7 @@ const animais = [
         id: 1,
         nome: "Thor",
         subtitulo: '"Um companheiro cheio de energia, carinho e amor."',
-        imagem: "../../public/images/thor-cao.jpg", 
+        imagem: "../../public/images/thor-cao.jpg",
         titulo_descricao: "Sobre o Thor",
         descricao: "Thor está procurando um lar cheio de amor e cuidado. Ele ama brincar, correr, explorar novos lugares e receber carinho de toda a família.",
         idade: "2 anos", porte: "Médio", sexo: "Macho", temperamento: "Dócil"
@@ -368,7 +406,7 @@ const animais = [
         id: 3,
         nome: "Luna",
         subtitulo: '"Um companheiro cheio de energia..."',
-        imagem: "../../public/images/luna-cao.jpg", 
+        imagem: "../../public/images/luna-cao.jpg",
         titulo_descricao: "Sobre a Luna",
         descricao: "Luna está procurando um lar cheio de amor e cuidado.",
         idade: "5 meses", porte: "Médio", sexo: "Fêmea", temperamento: "Dócil"
@@ -409,16 +447,16 @@ function carregarAnimal() {
     const elNome = document.getElementById("animal-nome");
     if (animalEncontrado && elNome) {
         elNome.innerText = animalEncontrado.nome;
-        
+
         const elImg = document.getElementById("animal-imagem");
         if (elImg) elImg.src = animalEncontrado.imagem;
-        
+
         const elSobre = document.getElementById("sobre_animal");
         if (elSobre) elSobre.innerText = animalEncontrado.titulo_descricao;
-        
+
         const elDesc = document.getElementById("animal-descricao");
         if (elDesc) elDesc.innerText = animalEncontrado.descricao;
-        
+
         let subtituloElement = document.querySelector(".subtitulo-animal");
         if (subtituloElement) subtituloElement.innerText = animalEncontrado.subtitulo;
 
@@ -445,40 +483,43 @@ carregarAnimal();
 // ==========================================================================
 //    6. CONTROLADOR DE AÇÕES DE ADOÇÃO / FAVORITO (BLINDADO)
 // ==========================================================================
+window.usuarioEstaLogado = false; 
+
 document.addEventListener("DOMContentLoaded", function() {
     const btnAdoteAqui = document.getElementById('botao-adotar');
     const btnFavoritar = document.getElementById('botao-favoritar');
 
     if (btnAdoteAqui) {
-        btnAdoteAqui.addEventListener('click', function() {
+        btnAdoteAqui.addEventListener('click', function (evento) {
+            evento.preventDefault();  // 🛑 IMPEDE A PÁGINA DE RECARREGAR/PISCAR
+            evento.stopPropagation(); // 🛑 IMPEDE O MODAL DE FECHAR SOZINHO
             verificarEExecutarPet('adotar');
         });
     }
     if (btnFavoritar) {
-        btnFavoritar.addEventListener('click', function() {
+        btnFavoritar.addEventListener('click', function (evento) {
+            evento.preventDefault();  // 🛑 IMPEDE A PÁGINA DE RECARREGAR/PISCAR
+            evento.stopPropagation(); // 🛑 IMPEDE O MODAL DE FECHAR SOZINHO
             verificarEExecutarPet('favoritar');
         });
     }
 
     function verificarEExecutarPet(acao) {
-        // Se o usuário já estiver logado pelo sistema do professor
         if (window.usuarioEstaLogado === true) {
             executarAcaoFinal(acao);
         } else {
-            // Se não estiver logado, salva a intenção na variável global do Bloco 4
             acaoPendente = acao; 
-            
-            // Força o modal a abrir direto na marra, sem depender de nenhuma outra função
-            const modalAlvo = document.getElementById('modal-auth');
-            if (modalAlvo) {
-                modalAlvo.style.display = 'flex';
-                modalAlvo.classList.add('active');
-                
-                // Força a aba a iniciar em 'login'
-                const tLogin = document.getElementById('tab-login');
-                if (tLogin) tLogin.click(); 
+
+            // Abre o modal usando a função do professor do Bloco 4
+            if (typeof abrirModalAutenticacao === "function") {
+                abrirModalAutenticacao('login');
             } else {
-                alert("Erro crítico: O código do modal de login não foi encontrado dentro deste arquivo HTML!");
+                // Força bruta caso a função de cima falhe
+                const modalAlvo = document.getElementById('modal-auth');
+                if (modalAlvo) {
+                    modalAlvo.style.display = 'flex';
+                    modalAlvo.classList.add('active');
+                }
             }
         }
     }
@@ -486,9 +527,59 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function executarAcaoFinal(acao) {
     if (acao === 'adotar') {
-        // Como a página do Thor está em subpastas, certifique-se de que o caminho do formulário está correto:
-        window.location.href = "formulario-adocao.html"; 
+        window.location.href = "../adocao/registrar.html";
     } else if (acao === 'favoritar') {
         alert("Animal adicionado aos seus favoritos com sucesso!");
     }
 }
+
+
+//
+//
+//
+
+// Aguarda a página carregar os elementos antes de rodar o script
+window.addEventListener('DOMContentLoaded', () => {
+    // Captura os parâmetros da URL com segurança
+    const params = new URLSearchParams(window.location.search);
+    
+    // Captura os elementos do HTML
+    const body = document.getElementById('telaStatus');
+    const mensagem = document.getElementById('mensagem');
+    const botaoAcao = document.getElementById('botaoAcao');
+
+    // PRIMEIRO IF DE SEGURANÇA: Só roda o código se todos os elementos existirem na tela.
+    // Se faltar algum (ex: se você errar o ID no HTML), o script para aqui e NÃO trava o navegador.
+    if (!body || !mensagem || !botaoAcao) {
+        console.warn("Aviso: Elementos da tela de status não foram encontrados. O script foi interrompido para evitar travamentos.");
+        return; // Sai da função imediatamente de forma segura
+    }
+
+    // SEGUNDO IF: Verifica se a ação de sorteio foi requisitada na URL
+    if (params.get('action') === 'sorteio') {
+        const sorteio = Math.random();
+
+        if (sorteio < 0.5) {
+            // Caso Sucesso (Aprovado)
+            body.className = "approved";
+            mensagem.textContent = "Solicitação de adoção aprovada";
+            botaoAcao.textContent = "Local de retirada";
+            botaoAcao.href = "locais.html"; 
+        } else {
+            // Caso Erro (Rejeitado)
+            body.className = "rejected";
+            mensagem.textContent = "Solicitação de adoção rejeitada.";
+            botaoAcao.textContent = "Tentar Recadastro.";
+            botaoAcao.href = "javascript:window.history.back()"; 
+        }
+    } else {
+        // Se a página foi acessada sem o botão de sorteio, tenta voltar.
+        // O "if" aqui garante que o histórico existe antes de tentar voltar.
+        if (window.history && window.history.length > 1) {
+            window.history.back();
+        } else {
+            // Caso não tenha histórico para voltar, define um destino padrão seguro
+            window.location.href = "index.html"; 
+        }
+    }
+});

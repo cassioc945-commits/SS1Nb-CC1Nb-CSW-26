@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <!-- Vinculando o arquivo style.css existente -->
   <link rel="stylesheet" href="../../src/style.css">
 </head>
+
 <body>
 
   <!-- Header/Navbar padrão existente no projeto -->
@@ -56,9 +58,9 @@
   <!-- Área Principal do Formulário baseada na Seção 6 do CSS -->
   <main class="rescue-main-container registrar">
     <div class="rescue-form-box">
-      
+
       <form style="width: 100%;">
-        
+
         <!-- Campo Nome -->
         <div class="form-group">
           <label class="rescue-label" for="nome">Nome:</label>
@@ -98,23 +100,59 @@
         <!-- Alinhamento dos Botões Baseado no Wireframe -->
         <div class="modal-buttons" style="margin-top: 30px;">
           <!-- Botão Cancelar Vermelho (Definido na seção 7 do CSS) -->
-          <button type="button" class="btn-filtro btn-red" style="width: 140px; border-radius: 20px;" onclick="window.history.back()">Cancelar</button>
-          
+          <button type="button" class="btn-filtro btn-red" style="width: 140px; border-radius: 20px;"
+            onclick="window.history.back()">Cancelar</button>
+
           <!-- Botão Enviar Verde (Definido na seção 7 do CSS) -->
-          <button type="submit" class="btn-filtro btn-green" style="width: 140px; border-radius: 20px;">Enviar</button>
+          <button class="btnAbrirModal" type="submit" class="btn-enviar btn-green"
+            style="width: 140px; border-radius: 20px;">Enviar</button>
         </div>
-
       </form>
-
     </div>
 
-    <!-- Botão Redondo de Voltar com Seta (Posicionado na parte inferior esquerda conforme a imagem) -->
-    <div class="back-button-container" style="align-self: flex-start; margin-top: 20px;">
-      <button class="btn-voltar" onclick="window.history.back()">←</button>
+
+    <div class="meuModal modal-overlay">
+      <div class="modal-content">
+        <h3>ENVIAR CADASTRO</h3>
+        <p>Texto ou resumo das informações aqui...</p>
+        <div class="modal-buttons">
+          <button class="btnCancelar btn-enviar btn-red">Cancelar</button>
+          <button class="btnConfirmar btn-enviar btn-green">Enviar</button>
+        </div>
+      </div>
     </div>
+
+    <div class="telaCarregando modal-overlay">
+      <div class="modal-content">
+        <h3>VERIFICANDO INFORMAÇÕES</h3>
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="telaSucesso modal-overlay">
+      <div class="modal-content">
+        <div class="success-icon">✓</div>
+        <h3>Denúncia Enviada!</h3>
+        <p style="margin: 15px 0; color: #555;">Sua denúncia foi registrada com sucesso.</p>
+        <div class="modal-buttons" style="justify-content: center;">
+          <button class="btnFecharSucesso btn-enviar btn-green">Concluído</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-back" style="align-self: flex-start; margin-top: 20px;"  onclick="window.history.back()">
+      <span class="material-symbols-outlined">arrow_left_alt</span>
+    </button>
+
   </main>
 
   <!-- Vinculando o arquivo JavaScript existente -->
   <script src="../../src/script.js"></script>
 </body>
+
 </html>

@@ -11,7 +11,7 @@
 
 <body>
 
-   <header class="container-nav">
+    <header class="container-nav">
         <nav class="navegacao">
             <ul class="menu-lista">
 
@@ -38,7 +38,8 @@
 
                 <li class="bloco-direita-container">
                     <ul class="menu-lista-02">
-                        <li><img src="../../public/icones-images/acessibilidade.png" alt="acessibilidade" class="ajuste-icon">
+                        <li><img src="../../public/icones-images/acessibilidade.png" alt="acessibilidade"
+                                class="ajuste-icon">
                         </li>
                         <li class="menu-item-container">
                             <button class="dropdown-trigger">
@@ -66,7 +67,7 @@
         <div class="rescue-form-box">
 
             <div class="rescue-badge-container">
-                <img src="../public/icones-images/alerta.png" alt="Ícone Alerta" class="rescue-logo">
+                <img src="../../public/icones-images/alerta.png" alt="Ícone Alerta" class="rescue-logo">
                 <h3>Adicione Informações Sobre o Caso</h3>
             </div>
 
@@ -82,31 +83,30 @@
 
             <div class="form-group-block">
                 <label class="rescue-label">Descrição do Caso:</label>
-                <textarea id="descricao" class="rescue-textarea" placeholder="Descreva detalhadamente o que aconteceu..."></textarea>
+                <textarea id="descricao" class="rescue-textarea"
+                    placeholder="Descreva detalhadamente o que aconteceu..."></textarea>
             </div>
 
             <div class="form-footer">
-                <button id="btnAbrirModal" type="submit" class="btn-enviar">Enviar</button>
+                <button class="btnAbrirModal" type="submit" class="btn-enviar">Enviar</button>
             </div>
 
         </div>
 
 
 
-        <div id="meuModal" class="modal-overlay">
+        <div class="meuModal modal-overlay">
             <div class="modal-content">
-                <h3>ENVIAR O DENÚNCIA</h3>
-
+                <h3>ENVIAR A DENÚNCIA</h3>
                 <p>Texto ou resumo das informações aqui...</p>
-
                 <div class="modal-buttons">
-                    <button id="btnCancelar" class="btn-enviar btn-red">Cancelar</button>
-                    <button id="btnConfirmar" class="btn-enviar btn-green">Enviar</button>
+                    <button class="btnCancelar btn-enviar btn-red">Cancelar</button>
+                    <button class="btnConfirmar btn-enviar btn-green">Enviar</button>
                 </div>
             </div>
         </div>
 
-        <div id="telaCarregando" class="modal-overlay">
+        <div class="telaCarregando modal-overlay">
             <div class="modal-content">
                 <h3>VERIFICANDO INFORMAÇÕES</h3>
                 <div class="loading-dots">
@@ -118,18 +118,18 @@
             </div>
         </div>
 
-        <div id="telaSucesso" class="modal-overlay">
+        <div class="telaSucesso modal-overlay">
             <div class="modal-content">
                 <div class="success-icon">✓</div>
                 <h3>Denúncia Enviada!</h3>
                 <p style="margin: 15px 0; color: #555;">Sua denúncia foi registrada com sucesso.</p>
                 <div class="modal-buttons" style="justify-content: center;">
-                    <button id="btnFecharSucesso" class="btn-enviar btn-green">Concluído</button>
+                    <button class="btnFecharSucesso btn-enviar btn-green">Concluído</button>
                 </div>
             </div>
         </div>
-        
-       <script src="../../src/script.js"></script>
+
+        <script src="../../src/script.js"></script>
     </main>
 </body>
 

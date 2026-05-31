@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status da Solicitação</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    
+    <link rel="stylesheet" href="../../src/style.css">
+</head>
+<body id="telaStatus">
+
+    <header class="container-nav">
+    <nav class="navegacao">
+      <ul class="menu-lista">
+
+        <li class="menu-item-container">
+          <button class="dropdown-trigger">
+            <img src="../../public/icones-images/menu.png" alt="menu-arca" class="icone-topo">
+          </button>
+
+          <div class="dropdown-menu">
+            <ul class="dropdown-links">
+              <li><a href="../../index.html">🏠︎ Menu</a></li>
+              <li><a href="../../pages/adocao/index.html">🐾 Adotar</a></li>
+              <li><a href="../../pages/castracao/index.html">🛠️ Castração</a></li>
+              <li><a href="../../pages/denuncia/index.html">🚨 Fazer Denúncia</a></li>
+              <li><a href="../../pages/pedido_resgate/index.html">🚨 Acionar Resgate</a></li>
+              <li><a href="#ajuda">📱 Ouvidoria</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="barra-pesquisa">
+          <input class="search" type="search" placeholder="🔎︎ Pesquisar">
+        </li>
+
+        <li class="bloco-direita-container">
+          <ul class="menu-lista-02">
+            <li><img src="../../public/icones-images/acessibilidade.png" alt="acessibilidade" class="ajuste-icon">
+            </li>
+            <li class="menu-item-container">
+              <button class="dropdown-trigger">
+                <img src="../../public/icones-images/perfil.png" alt="perfil" class="ajuste-icon">
+              </button>
+              <div class="dropdown-menu">
+                <div id="conteudo-perfil">
+                  <ul class="dropdown-links">
+                    <li><a href="#" id="btn-entrar">🔑 Entrar / Login</a></li>
+                    <li><a href="#">📝 Criar uma Conta</a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+    <div class="content">
+        <span class="material-symbols-outlined status-icon icon-success">verified</span>
+        <span class="material-symbols-outlined status-icon icon-error">cancel</span>
+        
+        <div id="mensagem" class="message-box"></div>
+
+        <a id="botaoAcao" class="btn-action" href="#"></a>
+    </div>
+
+    <button class="btn-back backmore" onclick="window.history.back()">
+        <span class="material-symbols-outlined">arrow_left_alt</span>
+    </button>
+
+    <script src="../../src/script.js"></script>
+
+</body>
+</html>
